@@ -1022,7 +1022,6 @@ supported_targets! {
     ("bpfel-unknown-none", bpfel_unknown_none),
 
     ("armv6k-nintendo-3ds", armv6k_nintendo_3ds),
-    ("aarch64-nintendo-switch", aarch64_nintendo_switch),
 
     ("armv7-unknown-linux-uclibceabi", armv7_unknown_linux_uclibceabi),
     ("armv7-unknown-linux-uclibceabihf", armv7_unknown_linux_uclibceabihf),
@@ -1030,6 +1029,8 @@ supported_targets! {
     ("x86_64-unknown-none", x86_64_unknown_none),
 
     ("mips64-openwrt-linux-musl", mips64_openwrt_linux_musl),
+
+    ("aarch64-nintendo-switch-freestanding", aarch64_nintendo_switch_freestanding),
 }
 
 /// Cow-Vec-Str: Cow<'static, [Cow<'static, str>]>
