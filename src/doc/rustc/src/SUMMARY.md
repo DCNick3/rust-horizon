@@ -14,7 +14,7 @@
 - [Tests](tests/index.md)
 - [Platform Support](platform-support.md)
     - [aarch64-apple-ios-sim](platform-support/aarch64-apple-ios-sim.md)
-    - [aarch64-nintendo-switch](platform-support/aarch64-nintendo-switch.md)
+    - [aarch64-nintendo-switch-freestanding](platform-support/aarch64-nintendo-switch-freestanding.md)
 - [Target Tier Policy](target-tier-policy.md)
 - [Targets](targets/index.md)
     - [Built-in Targets](targets/built-in.md)
