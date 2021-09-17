@@ -202,7 +202,7 @@ target | std | host | notes
 -------|:---:|:----:|-------
 `aarch64-apple-ios-macabi` | ? |  | Apple Catalyst on ARM64
 `aarch64-apple-tvos` | * |  | ARM64 tvOS
-`aarch64-nintendo-switch` | * |  | ARM64 Nintendo Switch, Horizon
+[`aarch64-nintendo-switch`](platform-support/aarch64-nintendo-switch.md) | * |  | ARM64 Nintendo Switch, Horizon
 `aarch64-unknown-freebsd` | ✓ | ✓ | ARM64 FreeBSD
 `aarch64-unknown-hermit` | ? |  |
 `aarch64-unknown-uefi` | * |  | ARM64 UEFI
