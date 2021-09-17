@@ -210,6 +210,7 @@ target | std | host | notes
 [`aarch64-kmc-solid_asp3`](platform-support/kmc-solid.md) | ✓ |  | ARM64 SOLID with TOPPERS/ASP3
 [`aarch64-pc-windows-gnullvm`](platform-support/pc-windows-gnullvm.md) | ✓ | ✓ |
 `aarch64-nintendo-switch` | * |  | ARM64 Nintendo Switch, Horizon
+[`aarch64-nintendo-switch`](platform-support/aarch64-nintendo-switch.md) | * |  | ARM64 Nintendo Switch, Horizon
 `aarch64-unknown-freebsd` | ✓ | ✓ | ARM64 FreeBSD
 `aarch64-unknown-hermit` | ✓ |  | ARM64 HermitCore
 `aarch64-unknown-uefi` | * |  | ARM64 UEFI
