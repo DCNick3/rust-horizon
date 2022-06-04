@@ -1025,6 +1025,8 @@ supported_targets! {
     ("x86_64-unknown-none", x86_64_unknown_none),
 
     ("mips64-openwrt-linux-musl", mips64_openwrt_linux_musl),
+
+    ("aarch64-nintendo-switch-freestanding", aarch64_nintendo_switch_freestanding),
 }
 
 /// Cow-Vec-Str: Cow<'static, [Cow<'static, str>]>

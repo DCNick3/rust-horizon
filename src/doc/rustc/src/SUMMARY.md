@@ -21,6 +21,7 @@
     - [*-unknown-openbsd](platform-support/openbsd.md)
     - [x86_64-unknown-none](platform-support/x86_64-unknown-none.md)
     - [wasm64-unknown-unknown](platform-support/wasm64-unknown-unknown.md)
+    - [aarch64-nintendo-switch-freestanding](platform-support/aarch64-nintendo-switch-freestanding.md)
 - [Target Tier Policy](target-tier-policy.md)
 - [Targets](targets/index.md)
     - [Built-in Targets](targets/built-in.md)
