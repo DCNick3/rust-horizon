@@ -1030,7 +1030,7 @@ supported_targets! {
 
     ("mips64-openwrt-linux-musl", mips64_openwrt_linux_musl),
 
-    ("aarch64-nintendo-switch-freestanding", aarch64_nintendo_switch_freestanding),
+    ("aarch64-nintendo-switch-homebrew", aarch64_nintendo_switch_homebrew),
 }
 
 /// Cow-Vec-Str: Cow<'static, [Cow<'static, str>]>
