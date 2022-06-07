@@ -18,6 +18,7 @@ pub fn target() -> Target {
             panic_strategy: PanicStrategy::Abort,
             position_independent_executables: true,
             dynamic_linking: false,
+            main_needs_argc_argv: false,
             executables: true,
             relro_level: RelroLevel::Off,
             ..Default::default()
