@@ -17,7 +17,8 @@ SECTIONS
 
   .text : ALIGN(0x1000) {
     HIDDEN(__text_start = .);
-    KEEP(*(.text.jmp))
+    KEEP(*(.text.rrt0))
+    /* KEEP(*(.text.jmp)) the proposed linker script was different..  */
 
     . = 0x80;
 
