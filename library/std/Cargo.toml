@@ -47,6 +47,9 @@ hermit-abi = { version = "0.2.0", features = ['rustc-dep-of-std'] }
 [target.wasm32-wasi.dependencies]
 wasi = { version = "0.11.0", features = ['rustc-dep-of-std'], default-features = false }
 
+[target.aarch64-nintendo-switch-homebrew.dependencies]
+nx = { path = "/home/dcnick3/git_cloned/nx", features = ['rustc-dep-of-std'] }
+
 [features]
 backtrace = [
   "gimli-symbolize",

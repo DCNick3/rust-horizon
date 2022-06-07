@@ -46,6 +46,9 @@ cfg_if::cfg_if! {
     } else if #[cfg(all(target_vendor = "fortanix", target_env = "sgx"))] {
         mod sgx;
         pub use self::sgx::*;
+    } else if #[cfg(target_os = "horizon")] {
+        mod horizon;
+        pub use self::horizon::*;
     } else {
         mod unsupported;
         pub use self::unsupported::*;

@@ -101,6 +101,14 @@ checksum = "8f8cb5d814eb646a863c4f24978cff2880c4be96ad8cde2c0f0678732902e271"
 
 [[package]]
 name = "arrayvec"
+version = "0.5.2"
+dependencies = [
+ "compiler_builtins",
+ "rustc-std-workspace-core",
+]
+
+[[package]]
+name = "arrayvec"
 version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5a2f58b0bb10c380af2b26e57212856b8c9a59e0925b4c20f4a174a49734eaf7"
@@ -678,7 +686,7 @@ dependencies = [
 name = "clippy_utils"
 version = "0.1.61"
 dependencies = [
- "arrayvec",
+ "arrayvec 0.7.0",
  "if_chain",
  "rustc-semver",
 ]
@@ -2053,6 +2061,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7fb9b38af92608140b86b693604b9ffcc5824240a484d1ecd4795bacb2fe88f3"
 
 [[package]]
+name = "linked_list_allocator"
+version = "0.9.1"
+dependencies = [
+ "compiler_builtins",
+ "rustc-std-workspace-core",
+]
+
+[[package]]
 name = "lint-docs"
 version = "0.1.0"
 dependencies = [
@@ -2081,6 +2097,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "51b9bbe6c47d51fc3e1a9b945965946b4c44142ab8792c50835a980d362c2710"
 dependencies = [
  "cfg-if 1.0.0",
+]
+
+[[package]]
+name = "logpacket"
+version = "0.1.0"
+dependencies = [
+ "compiler_builtins",
+ "rustc-std-workspace-alloc",
+ "rustc-std-workspace-core",
 ]
 
 [[package]]
@@ -2390,6 +2415,19 @@ checksum = "19e64526ebdee182341572e50e9ad03965aa510cd94427a4549448f285e957a1"
 dependencies = [
  "hermit-abi 0.1.19",
  "libc",
+]
+
+[[package]]
+name = "nx"
+version = "0.1.0"
+dependencies = [
+ "arrayvec 0.5.2",
+ "compiler_builtins",
+ "linked_list_allocator",
+ "logpacket",
+ "rustc-std-workspace-alloc",
+ "rustc-std-workspace-core",
+ "static_assertions",
 ]
 
 [[package]]
@@ -3584,7 +3622,7 @@ dependencies = [
 name = "rustc_data_structures"
 version = "0.0.0"
 dependencies = [
- "arrayvec",
+ "arrayvec 0.7.0",
  "bitflags",
  "cfg-if 0.1.10",
  "ena",
@@ -3752,7 +3790,7 @@ dependencies = [
 name = "rustc_index"
 version = "0.0.0"
 dependencies = [
- "arrayvec",
+ "arrayvec 0.7.0",
  "rustc_macros",
  "rustc_serialize",
  "smallvec",
@@ -4404,7 +4442,7 @@ dependencies = [
 name = "rustdoc"
 version = "0.0.0"
 dependencies = [
- "arrayvec",
+ "arrayvec 0.7.0",
  "askama",
  "atty",
  "expect-test",
@@ -4762,6 +4800,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "static_assertions"
+version = "1.1.0"
+dependencies = [
+ "compiler_builtins",
+ "rustc-std-workspace-core",
+]
+
+[[package]]
 name = "std"
 version = "0.0.0"
 dependencies = [
@@ -4776,6 +4822,7 @@ dependencies = [
  "hermit-abi 0.2.0",
  "libc",
  "miniz_oxide",
+ "nx",
  "object 0.26.2",
  "panic_abort",
  "panic_unwind",

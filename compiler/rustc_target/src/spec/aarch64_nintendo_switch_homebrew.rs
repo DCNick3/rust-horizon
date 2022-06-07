@@ -17,7 +17,7 @@ pub fn target() -> Target {
             max_atomic_width: Some(128),
             panic_strategy: PanicStrategy::Abort,
             position_independent_executables: true,
-            dynamic_linking: true,
+            dynamic_linking: false,
             executables: true,
             relro_level: RelroLevel::Off,
             ..Default::default()

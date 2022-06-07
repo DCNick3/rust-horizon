@@ -40,6 +40,7 @@ cfg_if::cfg_if! {
     if #[cfg(any(target_os = "l4re",
                  target_os = "hermit",
                  feature = "restricted-std",
+                 target_os = "horizon",
                  all(target_family = "wasm", not(target_os = "emscripten")),
                  all(target_vendor = "fortanix", target_env = "sgx")))] {
         pub use crate::sys::net;
