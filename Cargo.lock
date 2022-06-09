@@ -100,14 +100,6 @@ checksum = "8f8cb5d814eb646a863c4f24978cff2880c4be96ad8cde2c0f0678732902e271"
 [[package]]
 name = "arrayvec"
 version = "0.5.2"
-dependencies = [
- "compiler_builtins",
- "rustc-std-workspace-core",
-]
-
-[[package]]
-name = "arrayvec"
-version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "23b62fc65de8e4e7f52534fb52b0f3ed04746ae267519eef2a83941e8085068b"
 
@@ -184,6 +176,10 @@ name = "bitflags"
 version = "1.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
+dependencies = [
+ "compiler_builtins",
+ "rustc-std-workspace-core",
+]
 
 [[package]]
 name = "bitmaps"
@@ -1768,6 +1764,55 @@ dependencies = [
 ]
 
 [[package]]
+name = "horizon-error"
+version = "0.1.0"
+dependencies = [
+ "compiler_builtins",
+ "rustc-std-workspace-core",
+]
+
+[[package]]
+name = "horizon-global"
+version = "0.1.0"
+dependencies = [
+ "compiler_builtins",
+ "horizon-sync",
+ "rustc-std-workspace-core",
+]
+
+[[package]]
+name = "horizon-rt"
+version = "0.1.0"
+dependencies = [
+ "bitflags",
+ "compiler_builtins",
+ "horizon-error",
+ "horizon-global",
+ "horizon-svc",
+ "rustc-std-workspace-core",
+]
+
+[[package]]
+name = "horizon-svc"
+version = "0.1.0"
+dependencies = [
+ "bitflags",
+ "compiler_builtins",
+ "horizon-error",
+ "rustc-std-workspace-core",
+]
+
+[[package]]
+name = "horizon-sync"
+version = "0.1.0"
+dependencies = [
+ "compiler_builtins",
+ "horizon-error",
+ "horizon-svc",
+ "rustc-std-workspace-core",
+]
+
+[[package]]
 name = "html-checker"
 version = "0.1.0"
 dependencies = [
@@ -2093,7 +2138,7 @@ version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ec3066350882a1cd6d950d055997f379ac37fd39f81cd4d8ed186032eb3c5747"
 dependencies = [
- "static_assertions 1.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "static_assertions",
 ]
 
 [[package]]
@@ -2198,14 +2243,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0717cef1bc8b636c6e1c1bbdefc09e6322da8a9321966e8928ef80d20f7f770f"
 
 [[package]]
-name = "linked_list_allocator"
-version = "0.9.1"
-dependencies = [
- "compiler_builtins",
- "rustc-std-workspace-core",
-]
-
-[[package]]
 name = "lint-docs"
 version = "0.1.0"
 dependencies = [
@@ -2235,15 +2272,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "abb12e687cfb44aa40f41fc3978ef76448f9b6038cad6aef4259d3c095a2382e"
 dependencies = [
  "cfg-if 1.0.0",
-]
-
-[[package]]
-name = "logpacket"
-version = "0.1.0"
-dependencies = [
- "compiler_builtins",
- "rustc-std-workspace-alloc",
- "rustc-std-workspace-core",
 ]
 
 [[package]]
@@ -2562,19 +2590,6 @@ checksum = "19e64526ebdee182341572e50e9ad03965aa510cd94427a4549448f285e957a1"
 dependencies = [
  "hermit-abi 0.1.19",
  "libc",
-]
-
-[[package]]
-name = "nx"
-version = "0.1.0"
-dependencies = [
- "arrayvec 0.5.2",
- "compiler_builtins",
- "linked_list_allocator",
- "logpacket",
- "rustc-std-workspace-alloc",
- "rustc-std-workspace-core",
- "static_assertions 1.1.0",
 ]
 
 [[package]]
@@ -5049,14 +5064,6 @@ dependencies = [
 [[package]]
 name = "static_assertions"
 version = "1.1.0"
-dependencies = [
- "compiler_builtins",
- "rustc-std-workspace-core",
-]
-
-[[package]]
-name = "static_assertions"
-version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
 
@@ -5073,9 +5080,9 @@ dependencies = [
  "fortanix-sgx-abi",
  "hashbrown 0.12.2",
  "hermit-abi 0.2.3",
+ "horizon-rt",
  "libc",
  "miniz_oxide 0.4.4",
- "nx",
  "object 0.26.2",
  "panic_abort",
  "panic_unwind",
@@ -5870,7 +5877,7 @@ version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6cbce692ab4ca2f1f3047fcf732430249c0e971bfdd2b234cf2c47ad93af5983"
 dependencies = [
- "arrayvec 0.5.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "arrayvec 0.5.2",
  "utf8parse",
  "vte_generate_state_changes",
 ]

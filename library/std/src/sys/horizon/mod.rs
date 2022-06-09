@@ -1,13 +1,9 @@
 #![deny(unsafe_op_in_unsafe_fn)]
 
+
+// reference the nx crate so that it is linked in
 #[allow(unused_imports)]
-use nx;
-
-//#[used]
-fn __please_dont_forget_about_nx() {
-    
-}
-
+use horizon_rt;
 
 #[path = "../unsupported/alloc.rs"]
 pub mod alloc;
