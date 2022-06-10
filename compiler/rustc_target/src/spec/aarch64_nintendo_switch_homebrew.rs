@@ -21,6 +21,7 @@ pub fn target() -> Target {
             main_needs_argc_argv: false,
             executables: true,
             relro_level: RelroLevel::Off,
+            default_uwtable: true,
             ..Default::default()
         },
     }
