@@ -1644,6 +1644,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "horizon-env"
+version = "0.1.0"
+dependencies = [
+ "compiler_builtins",
+ "horizon-svc",
+ "rustc-std-workspace-core",
+]
+
+[[package]]
 name = "horizon-error"
 version = "0.1.0"
 dependencies = [
@@ -1655,7 +1664,9 @@ dependencies = [
 name = "horizon-rt"
 version = "0.1.0"
 dependencies = [
+ "bitflags",
  "compiler_builtins",
+ "horizon-env",
  "horizon-error",
  "horizon-svc",
  "rustc-std-workspace-core",
