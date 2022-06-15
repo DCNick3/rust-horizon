@@ -1,7 +1,8 @@
 #![deny(unsafe_op_in_unsafe_fn)]
 
 
-// reference the nx crate so that it is linked in
+// reference rt crate so that it is linked in
+// it contains the assemly entrypoint, so we NEED it
 #[allow(unused_imports)]
 use horizon_rt;
 
@@ -34,7 +35,7 @@ pub mod stdio;
 #[path = "../unsupported/thread_local_dtor.rs"]
 #[cfg(target_thread_local)]
 pub mod thread_local_dtor;
-#[path = "../unsupported/thread_local_key.rs"]
+
 pub mod thread_local_key;
 #[path = "../unsupported/time.rs"]
 pub mod time;

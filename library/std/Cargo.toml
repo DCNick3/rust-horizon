@@ -49,6 +49,7 @@ wasi = { version = "0.11.0", features = ['rustc-dep-of-std'], default-features =
 
 [target.aarch64-nintendo-switch-homebrew.dependencies]
 horizon-rt = { path = "/home/dcnick3/trash/homm3-switch/code/rust-horizon-libs/horizon-rs/horizon-rt", features = ['rustc-dep-of-std'] }
+horizon-global = { path = "/home/dcnick3/trash/homm3-switch/code/rust-horizon-libs/horizon-rs/horizon-global", features = ['rustc-dep-of-std'] }
 
 [features]
 backtrace = [
