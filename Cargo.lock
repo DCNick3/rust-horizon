@@ -1644,19 +1644,19 @@ dependencies = [
 ]
 
 [[package]]
-name = "horizon-env"
-version = "0.1.0"
-dependencies = [
- "compiler_builtins",
- "horizon-svc",
- "rustc-std-workspace-core",
-]
-
-[[package]]
 name = "horizon-error"
 version = "0.1.0"
 dependencies = [
  "compiler_builtins",
+ "rustc-std-workspace-core",
+]
+
+[[package]]
+name = "horizon-global"
+version = "0.1.0"
+dependencies = [
+ "compiler_builtins",
+ "horizon-sync",
  "rustc-std-workspace-core",
 ]
 
@@ -1666,8 +1666,8 @@ version = "0.1.0"
 dependencies = [
  "bitflags",
  "compiler_builtins",
- "horizon-env",
  "horizon-error",
+ "horizon-global",
  "horizon-svc",
  "rustc-std-workspace-core",
 ]
@@ -1679,6 +1679,16 @@ dependencies = [
  "bitflags",
  "compiler_builtins",
  "horizon-error",
+ "rustc-std-workspace-core",
+]
+
+[[package]]
+name = "horizon-sync"
+version = "0.1.0"
+dependencies = [
+ "compiler_builtins",
+ "horizon-error",
+ "horizon-svc",
  "rustc-std-workspace-core",
 ]
 
@@ -4817,6 +4827,7 @@ dependencies = [
  "fortanix-sgx-abi",
  "hashbrown 0.12.0",
  "hermit-abi 0.2.0",
+ "horizon-global",
  "horizon-rt",
  "libc",
  "miniz_oxide",
