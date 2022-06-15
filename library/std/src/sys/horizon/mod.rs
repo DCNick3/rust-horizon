@@ -1,12 +1,10 @@
 #![deny(unsafe_op_in_unsafe_fn)]
 
-
 // reference rt crate so that it is linked in
 // it contains the assemly entrypoint, so we NEED it
 #[allow(unused_imports)]
 use horizon_rt;
 
-#[path = "../unsupported/alloc.rs"]
 pub mod alloc;
 #[path = "../unsupported/args.rs"]
 pub mod args;

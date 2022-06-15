@@ -34,6 +34,7 @@ Session.vim
 config.mk
 config.stamp
 no_llvm_build
+rust-toolchain.toml
 
 ## Build
 /dl/
