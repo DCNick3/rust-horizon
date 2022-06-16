@@ -40,6 +40,7 @@ SECTIONS
   /* Init values for TLS */
   .tdata ALIGN(8) :
   {
+    . = ALIGN(8);
     HIDDEN(__tls_image_start = .);
     /* initialized */
     *(.tdata .tdata.* .gnu.linkonce.td.*)
@@ -89,12 +90,14 @@ SECTIONS
 
     *(.bss .bss.*)
     *(COMMON)
-    . = ALIGN(8);
 
     /* Reserve space for the TLS segment of the main thread */
+    . = ALIGN(8);
     HIDDEN(__main_thread_tls_start = .);
-    . += SIZEOF(.tdata) + SIZEOF(.tbss);
+    . += __tls_image_end - __tls_image_start;
     HIDDEN(__main_thread_tls_end = .);
+
+    . = ALIGN(8);
 
     HIDDEN(__bss_end = .);
   } :bss
