@@ -8,6 +8,7 @@ PHDRS
   rodata PT_LOAD FLAGS(4);
   data PT_LOAD FLAGS(6);
   bss PT_LOAD FLAGS(6);
+  tls PT_TLS;
   dynamic PT_DYNAMIC;
 }
 
@@ -32,8 +33,23 @@ SECTIONS
 
   .module_name : { *(.module_name) } :rodata
 
-  .rodata : { *(.rodata .rodata.*) } :rodata
-  .hash : { *(.hash) }
+  .rodata : {
+    *(.rodata .rodata.*)
+  } :rodata
+
+  /* Init values for TLS */
+  .tdata ALIGN(8) :
+  {
+    HIDDEN(__tls_image_start = .);
+    /* initialized */
+    *(.tdata .tdata.* .gnu.linkonce.td.*)
+    /* uninitialized */
+    *(.tbss .tbss.* .gnu.linkonce.tb.*) *(.tcommon)
+    . = ALIGN(8);
+    HIDDEN(__tls_image_end = .);
+  } :rodata :tls /* we need to emit those into both into rodata and into tls. rodata is for runtime (to copy stuff into thread-local region), tls is for debuggers(?) and to make linker happy (fails because it emits TLS symbols w/o TLS section) */
+
+  .hash : { *(.hash) } :rodata
   .dynsym : { *(.dynsym .dynsym.*) }
   .dynstr : { *(.dynstr .dynstr.*) }
   .rela.dyn : { *(.rela.dyn) }
@@ -50,6 +66,11 @@ SECTIONS
     HIDDEN(__eh_frame_hdr_end = .);
   }
 
+  .dynamic : {
+    HIDDEN(__dynamic_start = .);
+    *(.dynamic)
+  }
+
   /* Read-write sections */
 
    . = ALIGN(0x1000);
@@ -60,20 +81,22 @@ SECTIONS
     *(.got.plt .got.plt.*)
   } :data
 
-  .dynamic : {
-    HIDDEN(__dynamic_start = .);
-    *(.dynamic)
-  }
-
   /* BSS section */
-
   . = ALIGN(0x1000);
 
   .bss : {
     HIDDEN(__bss_start = .);
+
     *(.bss .bss.*)
     *(COMMON)
     . = ALIGN(8);
+
+    /* Reserve space for the TLS segment of the main thread */
+    HIDDEN(__main_thread_tls_start = .);
+    . += SIZEOF(.tdata) + SIZEOF(.tbss);
+    HIDDEN(__main_thread_tls_end = .);
+
     HIDDEN(__bss_end = .);
   } :bss
+
 }
