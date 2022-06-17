@@ -5027,6 +5027,7 @@ dependencies = [
  "hermit-abi 0.2.0",
  "horizon-global",
  "horizon-rt",
+ "horizon-svc",
  "horizon-sync",
  "libc",
  "miniz_oxide",
