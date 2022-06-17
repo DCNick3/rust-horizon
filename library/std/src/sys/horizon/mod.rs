@@ -28,7 +28,6 @@ pub mod path;
 pub mod pipe;
 #[path = "../unsupported/process.rs"]
 pub mod process;
-#[path = "../unsupported/stdio.rs"]
 pub mod stdio;
 #[cfg(target_thread_local)]
 pub mod thread_local_dtor;
