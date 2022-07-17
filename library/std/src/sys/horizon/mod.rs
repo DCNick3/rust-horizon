@@ -12,7 +12,6 @@ pub mod args;
 pub mod cmath;
 #[path = "../unsupported/env.rs"]
 pub mod env;
-#[path = "../unsupported/fs.rs"]
 pub mod fs;
 #[path = "../unsupported/io.rs"]
 pub mod io;
@@ -20,9 +19,7 @@ pub mod io;
 pub mod net;
 #[path = "../unsupported/os.rs"]
 pub mod os;
-#[path = "../unix/os_str.rs"]
 pub mod os_str;
-#[path = "../unix/path.rs"]
 pub mod path;
 #[path = "../unsupported/pipe.rs"]
 pub mod pipe;

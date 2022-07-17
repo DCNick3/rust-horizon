@@ -1784,7 +1784,6 @@ dependencies = [
 name = "horizon-ipc"
 version = "0.1.0"
 dependencies = [
- "arrayvec 0.7.2",
  "compiler_builtins",
  "horizon-error",
  "horizon-svc",
