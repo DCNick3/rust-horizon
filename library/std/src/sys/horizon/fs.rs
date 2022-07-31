@@ -7,10 +7,18 @@ use crate::sys::time::SystemTime;
 use crate::sys::unsupported;
 use super::error::HorizonResultExt;
 
-use horizon_ipcdef::fssrv::{IFileSystem, IFile, IDirectory, DirectoryEntry, DirectoryEntryType, CreateOption, OpenFileMode};
+use horizon_ipcdef::fssrv::{IFileSystem, IFile, IDirectory, DirectoryEntry, DirectoryEntryType, CreateOption, OpenFileMode, WriteOption};
+use horizon_sync::mutex::Mutex;
 
 #[derive(Debug)]
-pub struct File(IFile);
+struct FileInner {
+    handle: IFile,
+    offset: i64,
+    append: bool,
+}
+
+#[derive(Debug)]
+pub struct File(Mutex<FileInner>);
 
 pub struct FileAttr(!);
 
@@ -193,6 +201,15 @@ impl OpenOptions {
     }
 }
 
+impl FileInner {
+    fn offset(&mut self) -> io::Result<i64> {
+        if self.append {
+            self.offset = self.handle.get_size().to_std_result()?;
+        }
+        Ok(self.offset)
+    }
+}
+
 impl File {
     pub fn open(path: &Path, opts: &OpenOptions) -> io::Result<File> {
         let parsed_path = super::path::parse_path(path);
@@ -226,7 +243,23 @@ impl File {
 
                     let file: IFile = fs.open_file(&device_path, opts.open_mode()?).to_std_result()?;
 
-                    Ok(File(file))
+                    if opts.truncate {
+                        file.set_size(0).to_std_result()?;
+                    }
+
+                    let offset = if opts.append {
+                        file.get_size().to_std_result()?
+                    } else {
+                        0i64
+                    };
+
+                    let file = FileInner {
+                        handle: file,
+                        offset,
+                        append: opts.append
+                    };
+
+                    Ok(File(Mutex::new(file)))
                 },
                 _ => unsupported(),
             }
@@ -267,8 +300,20 @@ impl File {
         unsupported()
     }
 
-    pub fn write(&self, _buf: &[u8]) -> io::Result<usize> {
-        unsupported()
+    pub fn write(&self, buf: &[u8]) -> io::Result<usize> {
+        let mut inner = self.0.lock();
+
+        let offset = inner.offset()?;
+
+        inner.handle.write(offset,
+                           buf,
+                           buf.len() as i64 /* No buffer should be this large anyways */,
+                           WriteOption::empty()
+        ).to_std_result()?;
+
+        inner.offset += buf.len();
+
+        Ok(buf.len())
     }
 
     pub fn write_vectored(&self, _bufs: &[IoSlice<'_>]) -> io::Result<usize> {
