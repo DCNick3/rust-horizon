@@ -52,6 +52,7 @@ dlmalloc = { version = "0.2.3", features = ['rustc-dep-of-std'] }
 horizon-rt = { path = "/home/dcnick3/trash/homm3-switch/code/rust-horizon-libs/horizon-rs/horizon-rt", features = ['rustc-dep-of-std'] }
 horizon-global = { path = "/home/dcnick3/trash/homm3-switch/code/rust-horizon-libs/horizon-rs/horizon-global", features = ['rustc-dep-of-std'] }
 horizon-sync = { path = "/home/dcnick3/trash/homm3-switch/code/rust-horizon-libs/horizon-rs/horizon-sync", features = ['rustc-dep-of-std'] }
+horizon-error = { path = "/home/dcnick3/trash/homm3-switch/code/rust-horizon-libs/horizon-rs/horizon-error", features = ['rustc-dep-of-std'] }
 horizon-svc = { path = "/home/dcnick3/trash/homm3-switch/code/rust-horizon-libs/horizon-rs/horizon-svc", features = ['rustc-dep-of-std'] }
 horizon-ipc = { path = "/home/dcnick3/trash/homm3-switch/code/rust-horizon-libs/horizon-rs/horizon-ipc", features = ['rustc-dep-of-std'] }
 horizon-ipcdef = { path = "/home/dcnick3/trash/homm3-switch/code/rust-horizon-libs/horizon-rs/horizon-ipcdef", features = ['rustc-dep-of-std'] }

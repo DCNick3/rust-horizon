@@ -5,8 +5,9 @@ use crate::io::{self, IoSlice, IoSliceMut, ReadBuf, SeekFrom};
 use crate::path::{Path, PathBuf};
 use crate::sys::time::SystemTime;
 use crate::sys::unsupported;
+use super::error::HorizonResultExt;
 
-use horizon_ipcdef::fssrv::{IFile, IDirectory, DirectoryEntry, DirectoryEntryType};
+use horizon_ipcdef::fssrv::{IFileSystem, IFile, IDirectory, DirectoryEntry, DirectoryEntryType, CreateOption, OpenFileMode};
 
 #[derive(Debug)]
 pub struct File(IFile);
@@ -175,11 +176,63 @@ impl OpenOptions {
         self.create_new = create_new;
     }
 
+    pub fn open_mode(&self) -> io::Result<OpenFileMode> {
+        let mut res = OpenFileMode::empty();
+        if !self.read && !self.write {
+            return Err(io::Error::new(io::ErrorKind::InvalidInput, "Attempt to open file without read or write access"))
+        }
+
+        if self.read {
+            res |= OpenFileMode::Read;
+        }
+        if self.write {
+            res |= OpenFileMode::Write | OpenFileMode::Append;
+        }
+
+        Ok(res)
+    }
 }
 
 impl File {
-    pub fn open(_path: &Path, _opts: &OpenOptions) -> io::Result<File> {
-        unsupported()
+    pub fn open(path: &Path, opts: &OpenOptions) -> io::Result<File> {
+        let parsed_path = super::path::parse_path(path);
+
+        if !parsed_path.is_absolute() {
+            return Err(io::Error::new(io::ErrorKind::NotFound, "Path must be absolute"));
+        }
+
+        let mountpoint = parsed_path.mountpoint().unwrap_or(super::path::DEFAULT_MOUNTPOINT);
+
+        let mounts_guard = horizon_global::mounts::read();
+
+        let device_path = if let Some(p) = parsed_path.device_path_ipc() { p } else {
+            return Err(io::Error::new(io::ErrorKind::InvalidFilename, "Filename too long"))
+        };
+
+        if let Some(mountpoint) = mounts_guard.find(mountpoint) {
+            match mountpoint {
+                horizon_global::mounts::MountDevice::IFileSystem(fs) => {
+                    let fs = IFileSystem::new(fs);
+
+                    if opts.create || opts.create_new {
+                        let r = fs.create_file(&device_path, 0, CreateOption::empty());
+                        // do the same thing libnx does:
+                        // only check error code if create_new is specified
+                        // (assume that no other error than "file exists" may happen during `create_file`)
+                        if opts.create_new {
+                            r.to_std_result()?;
+                        }
+                    };
+
+                    let file: IFile = fs.open_file(&device_path, opts.open_mode()?).to_std_result()?;
+
+                    Ok(File(file))
+                },
+                _ => unsupported(),
+            }
+        } else {
+            Err(io::Error::new(io::ErrorKind::NotFound, "Mountpoint not found"))
+        }
     }
 
     pub fn file_attr(&self) -> io::Result<FileAttr> {
