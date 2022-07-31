@@ -7,7 +7,7 @@ use crate::sys::time::SystemTime;
 use crate::sys::unsupported;
 use super::error::HorizonResultExt;
 
-use horizon_ipcdef::fssrv::{IFileSystem, IFile, IDirectory, DirectoryEntry, DirectoryEntryType, CreateOption, OpenFileMode, WriteOption};
+use horizon_ipcdef::fssrv::{IFileSystem, IFile, IDirectory, DirectoryEntry, DirectoryEntryType, CreateOption, OpenFileMode, WriteOption, ReadOption};
 use horizon_sync::mutex::Mutex;
 
 #[derive(Debug)]
@@ -208,6 +208,10 @@ impl FileInner {
         }
         Ok(self.offset)
     }
+
+    fn forward(&mut self, size: usize) {
+        self.offset += size as i64;
+    }
 }
 
 impl File {
@@ -284,8 +288,21 @@ impl File {
         unsupported()
     }
 
-    pub fn read(&self, _buf: &mut [u8]) -> io::Result<usize> {
-        unsupported()
+    pub fn read(&self, buf: &mut [u8]) -> io::Result<usize> {
+        let mut inner = self.0.lock();
+
+        let offset = inner.offset()?;
+
+        let read = inner.handle.read(
+            offset,
+            buf,
+            buf.len() as i64,
+            ReadOption::empty()
+        ).to_std_result()? as usize;
+
+        inner.forward(read);
+
+        Ok(read)
     }
 
     pub fn read_vectored(&self, _bufs: &mut [IoSliceMut<'_>]) -> io::Result<usize> {
@@ -296,8 +313,16 @@ impl File {
         todo!()
     }
 
-    pub fn read_buf(&self, _buf: &mut ReadBuf<'_>) -> io::Result<()> {
-        unsupported()
+    pub fn read_buf(&self, buf: &mut ReadBuf<'_>) -> io::Result<()> {
+        // actually we don't need to initialize it
+        let buffer = buf.initialize_unfilled();
+
+        let read = self.read(buffer)?;
+
+        unsafe { buf.assume_init(read) };
+        buf.add_filled(read);
+
+        Ok(())
     }
 
     pub fn write(&self, buf: &[u8]) -> io::Result<usize> {
@@ -311,7 +336,7 @@ impl File {
                            WriteOption::empty()
         ).to_std_result()?;
 
-        inner.offset += buf.len();
+        inner.forward(buf.len());
 
         Ok(buf.len())
     }

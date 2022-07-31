@@ -63,7 +63,7 @@ fn parse_path_str(s: &str) -> ParsedPath<'_> {
         return ParsedPath::Relative(first_component);
     }
 
-    ParsedPath::WithMountpoint(first_component, &s[first_component_len..])
+    ParsedPath::WithMountpoint(&first_component[..first_component_len-1] /* strip the ':' */, &s[first_component_len..])
 }
 
 // this is an internal function
