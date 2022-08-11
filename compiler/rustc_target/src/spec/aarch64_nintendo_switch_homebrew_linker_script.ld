@@ -23,6 +23,10 @@ SECTIONS
 
     . = 0x80;
 
+    /* This is defined in horizon-global to raise a linker error
+         when a binary incompatible version of horizon-global crate is used in the app and std
+     */
+    HIDDEN(__horizon_global_abi_guard_keep = __horizon_global_abi_guard);
     *(.text .text.*)
     *(.plt .plt.*)
   }
