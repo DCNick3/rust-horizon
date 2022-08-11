@@ -531,6 +531,10 @@ name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
+dependencies = [
+ "compiler_builtins",
+ "rustc-std-workspace-core",
+]
 
 [[package]]
 name = "chalk-derive"
@@ -1775,7 +1779,9 @@ dependencies = [
 name = "horizon-global"
 version = "0.1.0"
 dependencies = [
+ "cfg-if 1.0.0",
  "compiler_builtins",
+ "horizon-error",
  "horizon-ipc",
  "horizon-sync",
  "rustc-std-workspace-core",
@@ -1799,6 +1805,7 @@ dependencies = [
  "bitflags",
  "compiler_builtins",
  "horizon-error",
+ "horizon-global",
  "horizon-ipc",
  "horizon-svc",
  "rustc-std-workspace-core",

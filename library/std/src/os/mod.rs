@@ -145,5 +145,8 @@ pub mod solid;
 #[cfg(target_os = "vxworks")]
 pub mod vxworks;
 
+#[cfg(target_os = "horizon")] // TODO: rename to horizon_nx
+pub mod horizon_nx;
+
 #[cfg(any(unix, target_os = "wasi", doc))]
 mod fd;

@@ -1,4 +1,3 @@
-use horizon_global::heap::AllocationError;
 use horizon_sync::mutex::Mutex as HosMutex;
 
 use crate::alloc::{GlobalAlloc, Layout, System};
@@ -17,8 +16,7 @@ unsafe impl dlmalloc::Allocator for DlmallocBackend {
 
         let ptr = match res {
             Ok(ptr) => ptr,
-            Err(AllocationError::InvalidSize(_)) => panic!("horizon coarse heap alloc failed: invalid size"),
-            Err(AllocationError::HeapExhausted) => return (core::ptr::null_mut(), 0, 0),
+            Err(()) => return (core::ptr::null_mut(), 0, 0),
         };
         
         (ptr, size, 0)
